@@ -164,6 +164,7 @@ def get_stats(rotated_image):
 def draw_lines_on(source_image, padding=0, threshold=None):
     """
     draw_lines_on
+    -------------
         by looking at the text image
         it does computation then outputs an image
         with upper and lower lines of the texts.
@@ -226,13 +227,14 @@ if __name__ == "__main__":
 
     # GUI
     # variable initialization
+    thres = np.average(init_stats)
     stats_min = int(np.min(init_stats))
     stats_max = int(np.max(init_stats))
 
     stats_interval = (stats_min, stats_max)
     trackbar_interval = (0, 100)
+    curr_trackbar_val = int(map_value(thres, stats_interval, trackbar_interval))
 
-    thres = np.average(init_stats)
     # naming
     window_name = "drawlines"
     trackbar_name = "my_trackbar"
@@ -241,7 +243,8 @@ if __name__ == "__main__":
     cv.createTrackbar(
                 trackbar_name,
                 window_name,
-                *trackbar_interval,
+                curr_trackbar_val,
+                trackbar_interval[1],
                 on_trackbar
             )
 
